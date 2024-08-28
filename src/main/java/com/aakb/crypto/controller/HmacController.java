@@ -19,7 +19,7 @@ class HmacController {
     HmacController() {
     }
 
-    @PostMapping("/find-hmac")
+    @PostMapping("/hmac")
     HmacResponse hash(@RequestBody HmacRequest hmacRequest) throws NoSuchAlgorithmException, InvalidKeyException {
         String plaintext = hmacRequest.getPlainText();
         String algoName = hmacRequest.getAlgoName();

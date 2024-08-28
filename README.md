@@ -7,18 +7,19 @@ A REST API that implements the essential cryptographic primitives corresponding 
 - Authentication: Verifies the user's identity through digital signatures.
 - Non-repudiation: Provide mechanisms to prevent denial of actions, ensuring accountability.
 ## APIs Implemented
-| SR #  | URI | Description | Pillar |
-| ------------- | ------------- | | ------------- | ------------- |
+
+| SR # | URI | Description  | Pillar |
+|------|-----|--------------|--------|
 | 1  | /symm-keys  | Generates a symmetric key for encrypting and decrypting data. | Confidentiality |
-| 3  | /symm-enc  | Encrypts plaintext using a symmetric key and a default IV. | Confidentiality |
-| 4  | /symm-dec  | Decrypts ciphertext using a symmetric key. | Confidentiality |
-| 2 | /asymm-keys  |Generates a private-public key pair for asymmetric encryption. | Confidentiality |
+| 2  | /symm-enc  | Encrypts plaintext using a symmetric key and a default IV. | Confidentiality |
+| 3  | /symm-dec  | Decrypts ciphertext using a symmetric key. | Confidentiality |
+| 4 | /asymm-keys  |Generates a private-public key pair for asymmetric encryption. | Confidentiality |
 | 5  | /hash  | Generates a Base64 encoded message digest (hash) for a plaintext. | Integrity |
 | 6  | /verify-hash | Verifies if the provided hash matches the given plaintext. | Integrity |
 | 7  | /hmac | Calculates a MAC tag for the plaintext using a specified key. | Authentication |
 | 8  | /verify-hmac | Verifies if the provided MAC tag is valid for the given plaintext. | Authentication |
 | 9  | /sign | Creates a digital signature from plaintext using a private key. | Non-repudiation |
-| 7  | /verify-sign |Verifies the digital signature against the plaintext using a public key. | Non-repudiation |
+| 10  | /verify-sign |Verifies the digital signature against the plaintext using a public key. | Non-repudiation |
 
 ## Usage
 ### Prerequisites

@@ -20,11 +20,6 @@ class KeyController {
     KeyController() {
     }
 
-    @GetMapping("/create")
-    String newKey() {
-        return "your AES key is created...";
-    }
-
     @PostMapping("/symm-keys")
     KeyResponse newSymmKey(@RequestBody KeyRequest keyRequest) throws NoSuchAlgorithmException {
         SecretKey symmetricKey = Symmetric.createAESKey(keyRequest.getKeySize(), keyRequest.getAlgorithm());

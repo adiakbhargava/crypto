@@ -33,7 +33,7 @@ class SignVerifyController {
                 .build();
     }
 
-    @PostMapping("/verify-signature")
+    @PostMapping("/verify-sign")
     VerifyResponse symmetricDecryption(@RequestBody VerifyRequest verifyRequest) throws InvalidKeySpecException, NoSuchAlgorithmException, SignatureException, InvalidKeyException {
         PublicKey pubKey =  Utils.createPubKey(verifyRequest.getKey64(), verifyRequest.getKeyAlgo());
         byte[] plainTextBytes = verifyRequest.getPlainText().getBytes();

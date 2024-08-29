@@ -2,19 +2,11 @@ package com.aakb.crypto.controller;
 
 import com.aakb.crypto.domain.*;
 import com.aakb.crypto.impl.Hashing;
-import com.aakb.crypto.impl.SymmEncDec;
-import com.aakb.crypto.impl.Utils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SecretKey;
 import java.io.IOException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 

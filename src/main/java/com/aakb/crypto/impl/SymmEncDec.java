@@ -13,6 +13,8 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 
+import static org.apache.tomcat.util.codec.binary.Base64.*;
+
 public class SymmEncDec {
     private static final String AES = "AES";
     private static final String AES_CIPHER_ALGORITHM = "AES/CBC/PKCS5PADDING";
@@ -54,7 +56,7 @@ public class SymmEncDec {
     public static String decrypt(String ciphertext, SecretKey secretKey, String algorithm, byte[] iV)
             throws IllegalBlockSizeException, BadPaddingException, InvalidKeyException,
             InvalidAlgorithmParameterException, NoSuchAlgorithmException, NoSuchPaddingException {
-        byte[] decodedCipherBytes = Base64.decodeBase64(ciphertext);
+        byte[] decodedCipherBytes = decodeBase64(ciphertext);
         Cipher cipher = Cipher.getInstance(algorithm);
         cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(iV));
         byte[] result = cipher.doFinal(decodedCipherBytes);

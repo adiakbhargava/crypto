@@ -5,7 +5,6 @@ import com.aakb.crypto.domain.KeyRequest;
 import com.aakb.crypto.domain.KeyResponse;
 import com.aakb.crypto.impl.Asymmetric;
 import com.aakb.crypto.impl.Symmetric;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

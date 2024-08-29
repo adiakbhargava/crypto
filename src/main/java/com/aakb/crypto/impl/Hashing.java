@@ -4,8 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.util.Scanner;
 
 public class Hashing {
   public static byte[] hashText(String plaintext, String algorithm) throws IOException, NoSuchAlgorithmException {

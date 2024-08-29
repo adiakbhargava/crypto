@@ -3,7 +3,6 @@ package com.aakb.crypto.impl;
 import javax.crypto.KeyGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
-import java.security.SecureRandom;
 import java.security.Security;
 import java.util.Base64;
 import javax.crypto.SecretKey;
@@ -45,19 +44,18 @@ public class Symmetric {
     // create a key with AES algorithm
     KeyGenerator keygenerator = KeyGenerator.getInstance(algorithm);
     keygenerator.init(keySize);
-    SecretKey key = keygenerator.generateKey();
+    return keygenerator.generateKey();
 
-    return key;
+
   }
 
   /**
    * creates secret key using AES
    */
-  public static String convertSecretKeyToBase64(SecretKey secretKey)
-      throws NoSuchAlgorithmException {
+  public static String convertSecretKeyToBase64(SecretKey secretKey) {
     byte[] rawData = secretKey.getEncoded();
-    String encodedKey = Base64.getEncoder().encodeToString(rawData);
-    return encodedKey;
+    return Base64.getEncoder().encodeToString(rawData);
+
   }
 
   public static String convertSecretKeyToBits(SecretKey secretKey) {
@@ -97,11 +95,5 @@ public class Symmetric {
     System.out.println(
         "bit representation: " + bitKeyString2 + "\nlength: " + bitKeyString2.length() + " bits\n");
 
-
-    // SecretKey symmetrickey3 = createAESKey(2048);
-    // System.out.println(convertSecretKeyToString(symmetrickey3));
-
-    // SecretKey symmetrickey4 = createAESKey(1);
-    // System.out.println(convertSecretKeyToString(symmetrickey4));
   }
 }

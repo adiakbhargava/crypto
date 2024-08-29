@@ -1,7 +1,5 @@
 package com.aakb.crypto.domain;
 
-import java.security.SecureRandom;
-
 public class KeyRequest {
     private int keySize;
     private String algorithm;

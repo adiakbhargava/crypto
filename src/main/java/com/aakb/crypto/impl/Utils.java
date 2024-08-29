@@ -10,9 +10,11 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
+import static org.apache.tomcat.util.codec.binary.Base64.decodeBase64;
+
 public class Utils {
     public static PrivateKey createPrivKey(String base64Str, String algorithm) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        byte[] decodedBytes = Base64.decodeBase64(base64Str);
+        byte[] decodedBytes = decodeBase64(base64Str);
         PKCS8EncodedKeySpec privKeySpec = new PKCS8EncodedKeySpec(decodedBytes);
         KeyFactory keyFactory = KeyFactory.getInstance(algorithm);
 
@@ -20,7 +22,7 @@ public class Utils {
     }
 
     public static PublicKey createPubKey(String base64Str, String algorithm) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        byte[] decodedBytes = Base64.decodeBase64(base64Str);
+        byte[] decodedBytes = decodeBase64(base64Str);
         X509EncodedKeySpec pubKeySpec = new X509EncodedKeySpec(decodedBytes);
         KeyFactory keyFactory = KeyFactory.getInstance(algorithm);
 
@@ -89,9 +91,8 @@ public class Utils {
     }
 
     public static SecretKey hydrateKeyFromBase64(String base64Str, String keyAlgoName) {
-        byte[] decodedBase64 = Base64.decodeBase64(base64Str);
-        SecretKey originalKey = new SecretKeySpec(decodedBase64, 0, decodedBase64.length, keyAlgoName);
-        return originalKey;
+        byte[] decodedBase64 = decodeBase64(base64Str);
+        return new SecretKeySpec(decodedBase64, 0, decodedBase64.length, keyAlgoName);
     }
 
     public static void getAllAlgos(String cryptoPrimitive) {

@@ -30,6 +30,9 @@ A REST API that implements the essential cryptographic primitives corresponding 
 git clone https://github.com/adiakbhargava/crypto.git
 ```
 ```
+cd crypto
+```
+```
 mvn clean install
 ```
 ```

@@ -10,8 +10,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class DecipherRequest {
-    private String secretKeyAlgoName;
-    private String secretKey;
+    private String keyAlgoName;
+    private String key;
     private String cipherAlgoName;
     private String cipherText;
     private String iV;

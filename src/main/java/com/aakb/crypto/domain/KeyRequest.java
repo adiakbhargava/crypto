@@ -1,22 +1,15 @@
 package com.aakb.crypto.domain;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Builder
+@Getter
+@Setter
+@ToString
 public class KeyRequest {
     private int keySize;
     private String algorithm;
-
-    public int getKeySize() {
-        return keySize;
-    }
-
-    public String getAlgorithm() {
-        return algorithm;
-    }
-
-    public void setKeySize(int keySize) {
-        this.keySize = keySize;
-    }
-
-    public void setAlgorithm(String algorithm) {
-        this.algorithm = algorithm;
-    }
 }

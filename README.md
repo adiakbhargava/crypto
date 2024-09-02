@@ -41,12 +41,10 @@ mvn spring-boot:run
 
 ## TODOs
 ### Features
-cf1- Asymmetric encryption and decryption
+cf1- Add support to store keys
 
-cf2- Add support to store keys
+cf2- Benchmarking
 
-cf3- Benchmarking
+cf3- Containerization support
 
-cf4- Containerization support
-
-cf5- Add more test cases
+cf4- Add more test cases

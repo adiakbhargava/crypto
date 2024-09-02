@@ -1,7 +1,5 @@
 package com.aakb.crypto.impl;
 
-import org.apache.tomcat.util.codec.binary.Base64;
-
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
@@ -13,7 +11,7 @@ import java.security.spec.X509EncodedKeySpec;
 import static org.apache.tomcat.util.codec.binary.Base64.decodeBase64;
 
 public class Utils {
-    public static PrivateKey createPrivKey(String base64Str, String algorithm) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public static PrivateKey hydratePrivKey(String base64Str, String algorithm) throws NoSuchAlgorithmException, InvalidKeySpecException {
         byte[] decodedBytes = decodeBase64(base64Str);
         PKCS8EncodedKeySpec privKeySpec = new PKCS8EncodedKeySpec(decodedBytes);
         KeyFactory keyFactory = KeyFactory.getInstance(algorithm);
@@ -21,14 +19,13 @@ public class Utils {
         return keyFactory.generatePrivate(privKeySpec);
     }
 
-    public static PublicKey createPubKey(String base64Str, String algorithm) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public static PublicKey hydratePubKey(String base64Str, String algorithm) throws NoSuchAlgorithmException, InvalidKeySpecException {
         byte[] decodedBytes = decodeBase64(base64Str);
         X509EncodedKeySpec pubKeySpec = new X509EncodedKeySpec(decodedBytes);
         KeyFactory keyFactory = KeyFactory.getInstance(algorithm);
 
         return keyFactory.generatePublic(pubKeySpec);
     }
-
 
     /**
      * Creates random salt value, random data fed into the input of a hash function.

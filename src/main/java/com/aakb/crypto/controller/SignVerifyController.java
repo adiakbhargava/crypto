@@ -14,12 +14,9 @@ import java.util.Base64;
 
 @RestController
 class SignVerifyController {
-    SignVerifyController() {
-    }
-
     @PostMapping("/sign")
     AsymmSignResponse asymmetricSigning(@Valid @RequestBody AsymmSignRequest asymmSignRequest) throws NoSuchAlgorithmException, InvalidKeySpecException, SignatureException, InvalidKeyException {
-        PrivateKey privKey = Utils.createPrivKey(asymmSignRequest.getPrivKey(), asymmSignRequest.getKeyAlgo());
+        PrivateKey privKey = Utils.hydratePrivKey(asymmSignRequest.getPrivKey(), asymmSignRequest.getKeyAlgo());
         byte[] signature = SignVerify.sign(asymmSignRequest.getPlaintext().getBytes(), privKey, asymmSignRequest.getSignAlgo());
 
         return AsymmSignResponse.builder()
@@ -30,7 +27,7 @@ class SignVerifyController {
 
     @PostMapping("/verify-sign")
     VerifyResponse symmetricDecryption(@RequestBody VerifyRequest verifyRequest) throws InvalidKeySpecException, NoSuchAlgorithmException, SignatureException, InvalidKeyException {
-        PublicKey pubKey =  Utils.createPubKey(verifyRequest.getKey64(), verifyRequest.getKeyAlgo());
+        PublicKey pubKey =  Utils.hydratePubKey(verifyRequest.getKey64(), verifyRequest.getKeyAlgo());
         byte[] plainTextBytes = verifyRequest.getPlainText().getBytes();
         byte[] signatureBytes = Base64.getDecoder().decode(verifyRequest.getCipherText().getBytes());
         

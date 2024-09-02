@@ -13,9 +13,6 @@ import java.security.NoSuchAlgorithmException;
 
 @RestController
 class HmacController {
-    HmacController() {
-    }
-
     @PostMapping("/hmac")
     HmacResponse hash(@RequestBody HmacRequest hmacRequest) throws NoSuchAlgorithmException, InvalidKeyException {
         String plaintext = hmacRequest.getPlainText();

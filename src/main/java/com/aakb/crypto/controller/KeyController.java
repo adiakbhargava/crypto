@@ -3,8 +3,10 @@ package com.aakb.crypto.controller;
 import com.aakb.crypto.domain.AsymmKeyResponse;
 import com.aakb.crypto.domain.KeyRequest;
 import com.aakb.crypto.domain.KeyResponse;
-import com.aakb.crypto.impl.Asymmetric;
+import com.aakb.crypto.impl.AsymmetricKeys;
 import com.aakb.crypto.impl.Symmetric;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,11 +18,12 @@ import java.util.Base64;
 
 @RestController
 class KeyController {
-    KeyController() {
-    }
+    Logger logger = LoggerFactory.getLogger(KeyController.class);
 
     @PostMapping("/symm-keys")
     KeyResponse newSymmKey(@RequestBody KeyRequest keyRequest) throws NoSuchAlgorithmException {
+        logger.debug("KeyRequest- {}", keyRequest);
+
         SecretKey symmetricKey = Symmetric.createAESKey(keyRequest.getKeySize(), keyRequest.getAlgorithm());
         KeyResponse keyResponse = new KeyResponse();
         keyResponse.setKey(Base64.getEncoder().encodeToString(symmetricKey.getEncoded()));
@@ -30,7 +33,7 @@ class KeyController {
 
     @PostMapping("/asymm-keys")
     AsymmKeyResponse newAsymmKey(@RequestBody KeyRequest keyRequest) throws NoSuchAlgorithmException {
-        KeyPair keyPair = Asymmetric.generateKeyPair(keyRequest.getKeySize(), keyRequest.getAlgorithm());
+        KeyPair keyPair = AsymmetricKeys.generateKeyPair(keyRequest.getKeySize(), keyRequest.getAlgorithm());
 
         System.out.println("Public key : " + Base64.getEncoder().encodeToString(keyPair.getPublic().getEncoded()));
         System.out.println("Private key : " + Base64.getEncoder().encodeToString(keyPair.getPrivate().getEncoded()));

@@ -12,9 +12,6 @@ import java.util.Base64;
 
 @RestController
 class IntegrityController {
-    IntegrityController() {
-    }
-
     @PostMapping("/hash")
     IntegrityResponse hash(@RequestBody IntegrityRequest integrityRequest) throws IOException, NoSuchAlgorithmException {
         String plaintext = integrityRequest.getPlainText();

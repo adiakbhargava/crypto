@@ -4,7 +4,7 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 
-public class Asymmetric {
+public class AsymmetricKeys {
   // generate public, private key pair
   public static KeyPair generateKeyPair(int keySize, String algorithm) throws NoSuchAlgorithmException {
     KeyPairGenerator kpg = KeyPairGenerator.getInstance(algorithm);

@@ -53,7 +53,7 @@ public class GlobalExceptionHandler {
             details.add(error.getDefaultMessage());
         }
 
-        // append error messages to a StrinBuilder
+        // append error messages to a StringBuilder
         StringBuilder errorMsg = new StringBuilder();
         for(int i = 0; i < details.size(); i++){
             errorMsg.append(details.get(i));

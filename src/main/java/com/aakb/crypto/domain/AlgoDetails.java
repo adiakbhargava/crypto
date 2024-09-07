@@ -9,6 +9,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+/**
+ * Provides all details for an algorithm that can be displayed by algos URI
+ *
+ * @author Adi Bhargava
+ */
 public class AlgoDetails {
     private String algorithm;
     private String className;

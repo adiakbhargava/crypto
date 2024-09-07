@@ -9,6 +9,11 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
+/**
+ * Response for sign-verify controller
+ *
+ * @author Adi Bhargava
+ */
 public class AsymmSignResponse {
     private String signature;
     private String pubKey;

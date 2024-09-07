@@ -7,7 +7,14 @@ import lombok.ToString;
 
 @ToString
 @Builder
+@Getter
+@Setter
+/**
+ * Response for Asymm key controller
+ *
+ * @author Adi Bhargava
+ */
 public class AsymmKeyResponse {
-    @Getter @Setter private String privKey;
-    @Getter @Setter private String pubKey;
+    private String privKey;
+    private String pubKey;
 }

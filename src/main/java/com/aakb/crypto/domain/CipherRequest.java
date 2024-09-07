@@ -9,6 +9,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+/**
+ * Request for cipher controller
+ *
+ * @author Adi Bhargava
+ */
 public class CipherRequest {
     private String keyAlgoName;
     private String key;

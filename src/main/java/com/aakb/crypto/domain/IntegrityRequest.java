@@ -9,6 +9,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+/**
+ * Request for integrity controller
+ *
+ * @author Adi Bhargava
+ */
 public class IntegrityRequest {
     private String plainText;
     private String hashAlgoName;

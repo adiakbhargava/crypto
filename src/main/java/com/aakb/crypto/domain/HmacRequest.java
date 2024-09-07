@@ -9,6 +9,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+/**
+ * Request for HMAC controller
+ *
+ * @author Adi Bhargava
+ */
 public class HmacRequest {
     private String plainText;
     private String key;

@@ -9,6 +9,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+/**
+ * Response for asymmetric hashing in cipher controller
+ *
+ * @author Adi Bhargava
+ */
 public class AsymmCipherResponse {
     private String cipherText;
 }

@@ -6,13 +6,22 @@ import java.util.Base64;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 
+/**
+ * Implementation for calculating the hash-based message authentication code
+ *
+ * @author Adi Bhargava
+ */
 public class CalculateHMAC {
-  // Signature, KeyGenerator, Mac, Cipher, SecretKeyFactory, MessageDigest
-  public static String findHMAC(String plain, String algo, SecretKey key)
+  /**
+   * calculates the HMAC for a plain text using a symmetric key and algorithm
+   *
+   * @return String of Base64 encoded HMAC
+   */
+  public static String findHMAC(String plainText, String algorithm, SecretKey key)
       throws NoSuchAlgorithmException, InvalidKeyException {
-    Mac mac = Mac.getInstance(algo);
+    Mac mac = Mac.getInstance(algorithm);
     mac.init(key);
-    mac.update(plain.getBytes());
+    mac.update(plainText.getBytes());
 
     return Base64.getEncoder().encodeToString(mac.doFinal());
   }

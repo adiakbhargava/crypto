@@ -9,6 +9,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+/**
+ * Request for key controller
+ *
+ * @author Adi Bhargava
+ */
 public class KeyRequest {
     private int keySize;
     private String algorithm;

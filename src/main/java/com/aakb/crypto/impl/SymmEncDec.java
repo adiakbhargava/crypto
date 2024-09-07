@@ -15,48 +15,38 @@ import javax.crypto.spec.IvParameterSpec;
 
 import static org.apache.tomcat.util.codec.binary.Base64.*;
 
+/**
+ * Symmetric encryption and decryption
+ *
+ * @author Adi Bhargava
+ */
 public class SymmEncDec {
-    private static final String AES = "AES";
-    private static final String AES_CIPHER_ALGORITHM = "AES/CBC/PKCS5PADDING";
-
     /**
-     * Creates and returns an initialization vector, a random assortment of bytes, in order to
-     * randomize the first block in encryption which will therefore randomize the next block as we use
-     * Cipher Block Chaining (CBC)
-     * <p>
-     * This helps in preventing unauthorized decryption of the ciphertext
+     * Creates a cipher text based on the plain text, secret symm key, algorithm, and an initialization vector
      *
-     * @return byte[] initializationVector
-     */
-    public static byte[] createInitializationVector() {
-        byte[] initializationVector = new byte[16];
-        SecureRandom securerandom = new SecureRandom();
-        securerandom.nextBytes(initializationVector);
-
-        return initializationVector;
-    }
-
-    /**
-     * Encrypts plaintext and returns ciphertext based off of the secretkey and initialization vector using CBC block cipher
+     * @return byte[] representation of the cipher text
      */
     public static byte[] encrypt(String plaintext, SecretKey secretKey, String algorithm, byte[] iV) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
             InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
         Cipher cipher = Cipher.getInstance(algorithm);
         IvParameterSpec ivParameterSpec = new IvParameterSpec(iV);
-
         cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivParameterSpec);
 
         return cipher.doFinal(plaintext.getBytes());
     }
 
     /**
-     * Decrypts ciphertext and returns original plaintext encrypted by secretkey and initialization
-     * vector
+     * Decrypts the cipher text for the plain text based off of the secret key and initialization vector
+     * used for encryption.
+     *
+     * @return String of original plain text (decrypted cipher text)
      */
     public static String decrypt(String ciphertext, SecretKey secretKey, String algorithm, byte[] iV)
             throws IllegalBlockSizeException, BadPaddingException, InvalidKeyException,
             InvalidAlgorithmParameterException, NoSuchAlgorithmException, NoSuchPaddingException {
+        // decode Base64 cipher text to cipher bytes
         byte[] decodedCipherBytes = decodeBase64(ciphertext);
+
         Cipher cipher = Cipher.getInstance(algorithm);
         cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(iV));
         byte[] result = cipher.doFinal(decodedCipherBytes);

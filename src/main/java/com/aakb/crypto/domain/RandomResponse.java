@@ -9,6 +9,12 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
+/**
+ * Response for random controller
+ *
+ * @author Adi Bhargava
+ */
 public class RandomResponse {
+    // Base64 encoded string
     private String randomBase64;
 }

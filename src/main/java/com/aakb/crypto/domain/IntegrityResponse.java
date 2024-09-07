@@ -9,6 +9,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+/**
+ * Response for integrity controller
+ *
+ * @author Adi Bhargava
+ */
 public class IntegrityResponse {
     private String hashedText;
 }

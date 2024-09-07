@@ -9,6 +9,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+/**
+ * Request for random controller
+ *
+ * @author Adi Bhargava
+ */
 public class RandomRequest {
     private int size;
     private String algorithm;

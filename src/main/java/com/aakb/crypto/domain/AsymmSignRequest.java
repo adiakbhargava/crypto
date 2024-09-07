@@ -10,6 +10,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+/**
+ * Request for asymm signing
+ *
+ * @author Adi Bhargava
+ */
 public class AsymmSignRequest {
     @NotBlank(message = "plaintext is required")
     private String plaintext;

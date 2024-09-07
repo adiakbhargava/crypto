@@ -17,26 +17,39 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 @RestController
+/**
+ * Controller that generates symmetric and asymmetric keys
+ *
+ * @author Adi Bhargava
+ */
 class KeyController {
     Logger logger = LoggerFactory.getLogger(KeyController.class);
 
+    /**
+     * Generates a symmetric key based off of the content of the KeyRequest
+     *
+     * @return KeyResponse holding Base64 encoded String of symmetric key
+     */
     @PostMapping("/symm-keys")
     KeyResponse newSymmKey(@RequestBody KeyRequest keyRequest) throws NoSuchAlgorithmException {
         logger.debug("KeyRequest- {}", keyRequest);
+        // create symmetric key using size and key algorithm from keyRequest
+        SecretKey symmetricKey = Symmetric.createSymmKey(keyRequest.getKeySize(), keyRequest.getAlgorithm());
 
-        SecretKey symmetricKey = Symmetric.createAESKey(keyRequest.getKeySize(), keyRequest.getAlgorithm());
-        KeyResponse keyResponse = new KeyResponse();
-        keyResponse.setKey(Base64.getEncoder().encodeToString(symmetricKey.getEncoded()));
-
-        return keyResponse;
+        return KeyResponse.builder()
+                .key(Base64.getEncoder().encodeToString(symmetricKey.getEncoded()))
+                .build();
     }
 
+    /**
+     * Generates a private-public key pair based off of the content of the KeyRequest
+     *
+     * @return AsymmKeyResponse holding the Base64 encoded string of the private and public keys
+     */
     @PostMapping("/asymm-keys")
     AsymmKeyResponse newAsymmKey(@RequestBody KeyRequest keyRequest) throws NoSuchAlgorithmException {
+        // create key pair
         KeyPair keyPair = AsymmetricKeys.generateKeyPair(keyRequest.getKeySize(), keyRequest.getAlgorithm());
-
-        System.out.println("Public key : " + Base64.getEncoder().encodeToString(keyPair.getPublic().getEncoded()));
-        System.out.println("Private key : " + Base64.getEncoder().encodeToString(keyPair.getPrivate().getEncoded()));
 
         return AsymmKeyResponse.builder()
                 .privKey(Base64.getEncoder().encodeToString(keyPair.getPrivate().getEncoded()))

@@ -6,9 +6,16 @@ import java.security.*;
 
 import static org.apache.tomcat.util.codec.binary.Base64.decodeBase64;
 
+/**
+ * Implementation for the asymmetric encryption-decryption of a plain text
+ *
+ * @author Adi Bhargava
+ */
 public class AsymmEncDec {
     /**
-     * Encrypts plaintext and returns ciphertext based off of the secretkey and initialization vector using CBC block cipher
+     * Performs asymmetric encryption of a plain text given a private key and algorithm
+     *
+     * @return byte[] of cipher text
      */
     public static byte[] encrypt(String plaintext, PrivateKey privKey, String algorithm) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
             InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
@@ -19,8 +26,9 @@ public class AsymmEncDec {
     }
 
     /**
-     * Decrypts ciphertext and returns original plaintext encrypted by secretkey and initialization
-     * vector
+     * Decrypts cipher text and returns plain text given the public key
+     *
+     * @return String of plain text
      */
     public static String decrypt(String ciphertext, PublicKey pubKey, String algorithm)
             throws IllegalBlockSizeException, BadPaddingException, InvalidKeyException,

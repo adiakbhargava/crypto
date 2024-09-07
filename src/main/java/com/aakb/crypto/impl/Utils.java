@@ -1,7 +1,6 @@
 package com.aakb.crypto.impl;
 
 import javax.crypto.SecretKey;
-import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
@@ -10,7 +9,17 @@ import java.security.spec.X509EncodedKeySpec;
 
 import static org.apache.tomcat.util.codec.binary.Base64.decodeBase64;
 
+/**
+ * Provides operations used among the REST APIs.
+ *
+ * @author Adi Bhargava
+ */
 public class Utils {
+    /**
+     * Creates private key using the base 64 string representation of the key is fed into the input.
+     *
+     * @return PrivateKey of String
+     */
     public static PrivateKey hydratePrivKey(String base64Str, String algorithm) throws NoSuchAlgorithmException, InvalidKeySpecException {
         byte[] decodedBytes = decodeBase64(base64Str);
         PKCS8EncodedKeySpec privKeySpec = new PKCS8EncodedKeySpec(decodedBytes);
@@ -19,6 +28,11 @@ public class Utils {
         return keyFactory.generatePrivate(privKeySpec);
     }
 
+    /**
+     * Creates public key using the base 64 string representation of the key is fed into the input.
+     *
+     * @return PublicKey of String
+     */
     public static PublicKey hydratePubKey(String base64Str, String algorithm) throws NoSuchAlgorithmException, InvalidKeySpecException {
         byte[] decodedBytes = decodeBase64(base64Str);
         X509EncodedKeySpec pubKeySpec = new X509EncodedKeySpec(decodedBytes);
@@ -33,17 +47,21 @@ public class Utils {
      * @return byte[] of salt value to be used as an input
      */
     public static byte[] createRandomSaltValue() {
+        // salt value is 16 bytes
         byte[] salt = new byte[16];
         SecureRandom securerandom = new SecureRandom();
+        // provides random values for the salt[]
         securerandom.nextBytes(salt);
 
         return salt;
     }
 
-    public static IvParameterSpec createDefaultedIvParameterSpecr() {
-        return new IvParameterSpec(createDefaultIv());
-    }
-
+    /**
+     * Creates an initialization vector, random data is fed into the input of a symmetric encryption/decryption
+     * function.
+     *
+     * @return byte[] of initialization vector to be used as an input
+     */
     public static byte[] createDefaultIv() {
         byte[] initializationVector = new byte[16];
         SecureRandom securerandom = new SecureRandom();
@@ -52,56 +70,13 @@ public class Utils {
         return initializationVector;
     }
 
-    public static String convertSecretKeyToBits(byte[] bytes) {
-        StringBuilder sb = new StringBuilder();
-        for (byte b : bytes) {
-            sb.append(String.format("%8s", Integer.toBinaryString(b & 0xff)).replace(' ', '0'));
-        }
-
-        return sb.toString();
-    }
-
-    public static String convertByteToHexString(byte[] arr) {
-        StringBuilder sb = new StringBuilder();
-        for (byte b : arr) {
-            int decimal = (int) b & 0xff;
-            String hex = Integer.toHexString(decimal);
-
-            if (hex.length() % 2 == 1) {
-                hex = "0" + hex;
-            }
-            sb.append(hex);
-        }
-
-        return sb.toString();
-    }
-
-    public static byte[] fromHexString(String s) {
-        int len = s.length();
-        byte[] data = new byte[len / 2];
-        for (int i = 0; i < len; i += 2) {
-            data[i / 2] =
-                    (byte) ((Character.digit(s.charAt(i), 16) << 4) + Character.digit(s.charAt(i + 1), 16));
-        }
-
-        return data;
-    }
-
-    public static SecretKey hydrateKeyFromBase64(String base64Str, String keyAlgoName) {
+    /**
+     * Creates a symmetric secret key from a base 64 string and given key algorithm
+     *
+     * @return SecretKey from String
+     */
+    public static SecretKey hydrateSecretKeyFromBase64(String base64Str, String keyAlgoName) {
         byte[] decodedBase64 = decodeBase64(base64Str);
         return new SecretKeySpec(decodedBase64, 0, decodedBase64.length, keyAlgoName);
-    }
-
-    public static void getAllAlgos(String cryptoPrimitive) {
-        for (Provider provider : Security.getProviders()) {
-            for (Provider.Service service : provider.getServices()) {
-                if (service.getType().equals(cryptoPrimitive)) {
-                    System.out.println(provider);
-                    System.out.println(
-                            "===============================================================================");
-                    System.out.println(service.getType() + "--------------" + service);
-                }
-            }
-        }
     }
 }

@@ -20,8 +20,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ControllerAdvice
+/**
+ * Handles all exceptions that may occur while application is in use
+ *
+ * @author Adi Bhargava
+ */
 public class GlobalExceptionHandler {
 
+    /**
+     * Handles common exceptions that occur while running cryptographic operations
+     *
+     * @return error response for specified exceptions
+     */
     @ExceptionHandler({InvalidKeySpecException.class, NoSuchAlgorithmException.class, SignatureException.class, InvalidKeyException.class,
             IOException.class, InvalidAlgorithmParameterException.class, NoSuchPaddingException.class, IllegalBlockSizeException.class,
             BadPaddingException.class, IllegalArgumentException.class})
@@ -30,13 +40,20 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
+    /**
+     * Handles exceptions that have to do with user input
+     *
+     * @return error response for specified exceptions
+     */
     @ExceptionHandler({MethodArgumentNotValidException.class})
     public ResponseEntity<ErrorResponse> handleInputValidationException(MethodArgumentNotValidException ex) {
         List<String> details = new ArrayList<>();
+        // add error messages to details list
         for (ObjectError error : ex.getBindingResult().getAllErrors()) {
             details.add(error.getDefaultMessage());
         }
 
+        // append error messages to a StrinBuilder
         StringBuilder errorMsg = new StringBuilder();
         for(int i = 0; i < details.size(); i++){
             errorMsg.append(details.get(i));
@@ -45,6 +62,7 @@ public class GlobalExceptionHandler {
             }
         }
 
+        // create error response using custom error message
         ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), errorMsg.toString());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
